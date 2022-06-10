@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package rcserver;
+
+option go_package = "github.com/a-agmon/rcserver/proto";
+
+message RecommendRequest{
+    string content = 1;
+}
+
+message RecommendResponse{
+    string content = 1;
+}
+

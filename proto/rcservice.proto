@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package rcserver;
+
+import "distscore.proto";
+import "recommend.proto";
+
+option go_package = "github.com/a-agmon/rcserver/proto";
+
+service RcService {
+    rpc Recommend(stream RecommendRequest) returns (stream RecommendResponse);
+}

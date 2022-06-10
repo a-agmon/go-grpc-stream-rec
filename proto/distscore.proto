@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package rcserver;
+
+option go_package = "github.com/a-agmon/rcserver/proto";
+
+message DistScoreReq {
+    string content = 1;
+}
+
+message DistScoreResp {
+    string content = 1;
+}
+
