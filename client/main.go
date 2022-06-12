@@ -29,15 +29,28 @@ func main() {
 
 func RunStatelessClient(client pb.RcServiceClient) {
 
-	response, err := client.RecommendByMany(context.Background(), &pb.RecommendManyRequest{
-		Content: []string{"a", "b", "c"},
-	})
-	if err != nil {
-		log.Fatalf("cant open client stream %v \n", err)
+	watched := make([]string, 0)
+	// now we block the main thread with using the main thread to wait for user input
+	fmt.Print("Enter Text: ")
+	scanner := bufio.NewScanner(os.Stdin)
+	for {
+		scanner.Scan()
+		text := scanner.Text()
+		if len(text) != 0 {
+			watched = append(watched, text)
+			response, err := client.RecommendByMany(context.Background(), &pb.RecommendManyRequest{
+				Content: watched,
+			})
+			if err != nil {
+				log.Fatalf("cant send server %v \n", err)
+			}
+			rec_response := response.Content
+			log.Printf("Recieved: %s", rec_response)
+		} else {
+			// exit if user entered an empty string
+			break
+		}
 	}
-
-	content := response.Content
-	log.Printf("Recieved: %s", content)
 
 }
 
