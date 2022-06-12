@@ -23,7 +23,21 @@ func main() {
 	}
 	defer conn.Close()
 	grpcClient := pb.NewRcServiceClient(conn)
-	runClient(grpcClient)
+	RunStatelessClient(grpcClient)
+
+}
+
+func RunStatelessClient(client pb.RcServiceClient) {
+
+	response, err := client.RecommendByMany(context.Background(), &pb.RecommendManyRequest{
+		Content: []string{"a", "b", "c"},
+	})
+	if err != nil {
+		log.Fatalf("cant open client stream %v \n", err)
+	}
+
+	content := response.Content
+	log.Printf("Recieved: %s", content)
 
 }
 
@@ -33,7 +47,7 @@ func runClient(client pb.RcServiceClient) {
 	if err != nil {
 		log.Fatalf("cant open client stream %v \n", err)
 	}
-	
+
 	// this is a routine that simple prints whatever it recieves from the server
 	go func() {
 		for {
