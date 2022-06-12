@@ -22,7 +22,7 @@ func main() {
 	// create a gRPC server object
 	grpcServer := grpc.NewServer()
 	// associate the GRPC with our generated handler
-	pb.RegisterRcServiceServer(grpcServer, &RCServer{})
+	pb.RegisterRcServiceServer(grpcServer, NewRCServer()) //&RCServer{})
 	// set the GRPC server to listen on the listerner
 	log.Println("Starting GRPC server")
 	grpcServer.Serve(listener)
