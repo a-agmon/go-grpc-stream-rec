@@ -8,6 +8,10 @@ message RecommendRequest{
     string content = 1;
 }
 
+message RecommendManyRequest{
+    repeated string content = 1;
+}
+
 message RecommendResponse{
     string content = 1;
 }

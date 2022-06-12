@@ -149,7 +149,7 @@ func (vm *VectorModel) userVector(confidenceMap map[int]float64) (mat.VecDense, 
 	// Please see github.com/benfred/implicit as a reference implementation
 
 	// We solve the following linear equation:
-	// Xu = (YtCuY + regularization*I)i^-1 * YtYCuPu
+	// Xu = (YtCuY + regularization*I)i”^-1 * YtYCuPu
 
 	// A = YtCuY + reg * I = YtY + reg * I + Yt(Cu - I)Y
 	// We initialize A to YtY + reg * I  and sum the last term for each doc

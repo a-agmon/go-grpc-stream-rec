@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"io"
 	"log"
 	"strings"
@@ -12,12 +14,23 @@ type RCServer struct {
 	pb.RcServiceServer
 }
 
+func (s *RCServer) RecommendByMany(ctx context.Context, req *pb.RecommendManyRequest) (*pb.RecommendResponse, error) {
+
+	viewed_items := req.Content
+	req_str := fmt.Sprintf("RecommendByMany called with %#v", viewed_items)
+	return &pb.RecommendResponse{
+		Content: req_str,
+	}, nil
+
+}
+
 func (s *RCServer) Recommend(stream pb.RcService_RecommendServer) error {
 
 	log.Println("Recommend called")
 
 	var buffer_size = 3
 	var buffer []string = make([]string, 0)
+
 	for {
 		in_stream, err := stream.Recv()
 		if err == io.EOF {

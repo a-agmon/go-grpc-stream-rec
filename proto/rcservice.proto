@@ -9,4 +9,5 @@ option go_package = "github.com/a-agmon/rcserver/proto";
 
 service RcService {
     rpc Recommend(stream RecommendRequest) returns (stream RecommendResponse);
+    rpc RecommendByMany (RecommendManyRequest) returns (RecommendResponse);
 }
